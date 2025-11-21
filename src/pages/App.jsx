@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Canvas } from "@react-three/fiber";
+import {
+  CameraControls,
+  Environment,
+  PerspectiveCamera,
+} from "@react-three/drei";
+import Floor from "../components/Scene/Floor";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function Home() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="w-full h-full">
+      <Canvas flat>
+        <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
+        <ambientLight intensity={Math.PI} />
 
-export default App
+        {/* group으로 전체 모델 위치/크기 조절 */}
+        <group scale={1} position={[0, 0, 0]}>
+          <Floor />
+        </group>
+        <Environment preset="forest" background blur={0} />
+        <PerspectiveCamera makeDefault position={[10, 10, 20]} />
+      </Canvas>
+    </div>
+  );
+}
