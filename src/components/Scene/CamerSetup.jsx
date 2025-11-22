@@ -4,7 +4,7 @@ export default function CameraSetup() {
   return (
     <>
       <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
-      <PerspectiveCamera makeDefault position={[10, 10, 20]} />
+      <PerspectiveCamera makeDefault position={[15, 10, 20]} />
     </>
   );
 }
