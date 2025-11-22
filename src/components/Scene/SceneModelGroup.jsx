@@ -1,11 +1,16 @@
-import Room from "./Room";
-import Plant from "./plant";
+import { PLANT_POSITION } from "../../constants/sceneConstants";
+import PlantTomato from "./Models/PlantTomato";
+import Room from "./Models/Room";
 
-export default function SceneModelGroup() {
+export default function SceneModelGroup({ setIsZoomed }) {
   return (
-    <group scale={3.5} position={[0, -3, 0]}>
-      <Room />
-      <Plant scale={0.15} position={[-1.8, 1.56, 0]} />
+    <group scale={1}>
+      <Room scale={3.5} position={[0, -3, 0]} />
+      <PlantTomato
+        scale={0.6}
+        position={[...PLANT_POSITION]}
+        setIsZoomed={setIsZoomed}
+      />
     </group>
   );
 }

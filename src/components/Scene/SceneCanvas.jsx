@@ -1,28 +1,19 @@
 import { Canvas } from "@react-three/fiber";
-import { Environment, useProgress } from "@react-three/drei";
+import { Environment } from "@react-three/drei";
 
-import { useEffect } from "react";
-import CameraSetup from "./CamerSetup";
+import CameraSetup from "./Camera/CameraSetup";
 import SceneModelGroup from "./SceneModelGroup";
+import { ProgressReporter } from "./UI/ProgressReporter";
 
-export default function SceneCanvas({ setProgress }) {
-  function ProgressReporter() {
-    const { progress } = useProgress();
-
-    useEffect(() => {
-      setProgress(progress);
-    }, [progress]);
-
-    return null;
-  }
+export default function SceneCanvas({ setProgress, isZoomed, setIsZoomed }) {
   return (
     <div className="fixed w-screen h-screen">
       <Canvas flat>
         <ambientLight intensity={Math.PI} />
-        <CameraSetup />
-        <SceneModelGroup />
+        <CameraSetup isZoomed={isZoomed} />
+        <SceneModelGroup setIsZoomed={setIsZoomed} />
         <Environment files="scene/sunny.hdr" background blur={0} />
-        <ProgressReporter />
+        <ProgressReporter setProgress={setProgress} />
       </Canvas>
     </div>
   );
