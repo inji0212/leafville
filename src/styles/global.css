@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+#root {
+  height: 100%;
+  margin: 0;
+}
+@font-face {
+  font-family: "kkukkukk";
+  src: local("kkukkukk"), url("../assets/fonts/kkukkukk.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GmarketSansBold";
+  src: local("GmarketSansBold"),
+    url("../assets/fonts/GmarketSansBold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "kkukkukk", sans-serif;
+}
