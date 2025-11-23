@@ -55,6 +55,11 @@ export default function CameraSetup({ isZoomed }) {
         maxPolarAngle={Math.PI / 1.6}
         focusOnSelect={true}
         enabled={!isZoomed}
+        mouseButtons={{
+          left: 0,
+          middle: 1,
+          right: 2,
+        }}
       />
       <PerspectiveCamera makeDefault position={[...INITIAL_CAMERA_POSITION]} />
     </>
