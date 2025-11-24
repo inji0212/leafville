@@ -10,7 +10,7 @@ export default function useSceneLoader(progress) {
 
   useEffect(() => {
     if (progress >= 100) {
-      setTimeout(() => setLoaded(true), 300);
+      setTimeout(() => setLoaded(true), 3000);
     }
   }, [progress]);
 
