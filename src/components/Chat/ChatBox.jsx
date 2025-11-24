@@ -53,7 +53,7 @@ export default function ChatBox() {
     <>
       <div
         className={`
-          w-72 h-72 rounded-2xl shadow-xl flex flex-col border-8 border-green200
+          z-40 w-72 h-72 rounded-2xl shadow-xl flex flex-col border-8 border-green200
           transition-all duration-300
           ${
             isFocused
