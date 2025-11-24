@@ -4,6 +4,8 @@ import SceneCanvas from "../components/Scene/SceneCanvas";
 import useSceneLoader from "../hooks/useSceneLoader";
 import PlantCard from "../components/Card/PlantCard";
 import WateringAnimation from "../components/Common/WateringAnimation";
+import AuthModal from "../components/Modal/AuthModal";
+import { Menu } from "../components/Common/Menu";
 
 export default function Home() {
   const [progress, setProgress] = useState(0);
@@ -12,7 +14,8 @@ export default function Home() {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isWatering, setIsWatering] = useState(false);
-
+  const [openAuth, setOpenAuth] = useState(false);
+ 
   return (
     <div className="w-full h-full relative">
       {!loaded && <Loader progress={progress} />}
@@ -35,6 +38,10 @@ export default function Home() {
           isDragging={isDragging}
         />
       )}
+        <Menu onOpenAuthModal={() => setOpenAuth(true)} />
+
+      <AuthModal isOpen={openAuth} onClose={() => setOpenAuth(false)} />
+
     </div>
   );
 }

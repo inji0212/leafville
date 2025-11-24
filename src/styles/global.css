@@ -16,9 +16,9 @@ html,
 }
 
 @font-face {
-  font-family: "GmarketSansBold";
-  src: local("GmarketSansBold"),
-    url("../assets/fonts/GmarketSansBold.woff") format("woff");
+  font-family: "GmarketSansMedium";
+  src: local("GmarketSansMedium"),
+    url("../assets/fonts/GmarketSansMedium.woff") format("woff");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -26,4 +26,7 @@ html,
 
 body {
   font-family: "kkukkukk", sans-serif;
+}
+.placeholder-custom::placeholder {
+  font-family: 'kkukkukk', sans-serif;
 }

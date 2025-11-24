@@ -32,7 +32,7 @@ export default {
 
       fontFamily: {
         sans: ['"kkukkukk"', "sans-serif"],
-        custom: ['"GmarketSansBold"', "sans-serif"],
+        custom: ['"GmarketSansMedium"', "sans-serif"],
       },
 
       screens: {
