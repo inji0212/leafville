@@ -1,26 +1,24 @@
-// Firebase Auth Modal Example (React)
-// - 로그인/회원가입 모달
-// - 로그인 <-> 회원가입 전환
-// - 닉네임(10자 이내) + 중복확인
-// - Firestore 저장 구조 예시 포함
-
 import { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-/* eslint-disable no-unused-vars */
+
+// eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from "framer-motion";
 import { auth, db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/authState";
 
 export default function AuthModal({ isOpen, onClose }) {
   const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const [nickValid, setNickValid] = useState(null); // null | true | false
+  const [nickValid, setNickValid] = useState(null);
+  const setUser = useUserStore((state) => state.setUser);
+
   const navigate = useNavigate();
 
   const reset = () => {
@@ -73,7 +71,22 @@ export default function AuthModal({ isOpen, onClose }) {
 
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const { user } = userCredential;
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      const nickname = userDoc.exists() ? userDoc.data().nickname : "1";
+
+      setUser({
+        uid: user.uid,
+        email: user.email,
+        nickname,
+      });
+      console.log("zustand store user:", useUserStore.getState().user);
+
       alert("로그인 성공!");
       onClose();
       navigate("/square");
@@ -88,7 +101,6 @@ export default function AuthModal({ isOpen, onClose }) {
     <div className="fixed inset-0 flex items-center justify-center z-50">
       <div className="absolute inset-0 bg-black/50" onClick={onClose}></div>
 
-      {/* 모달 */}
       <AnimatePresence>
         <motion.div
           initial={{ y: 80, opacity: 0 }}
@@ -97,7 +109,6 @@ export default function AuthModal({ isOpen, onClose }) {
           transition={{ type: "spring", stiffness: 180 }}
           className="relative bg-yellow50 p-6 rounded-3xl w-[350px]   border-8 border-yellow200  shadow-xl"
         >
-          {/* 닫기 버튼 */}
           <button
             onClick={onClose}
             className="absolute -top-16 -right-2 z-50 text-white bg-red100 transition duration-300 ease-in-out pt-1 pr-1 pb-[-1px] pl-1 rounded-lg hover:bg-red200 border-[6px] border-lg  border-yellow200"
@@ -109,7 +120,6 @@ export default function AuthModal({ isOpen, onClose }) {
             {mode === "login" ? "로그인" : "회원가입"}
           </h2>
 
-          {/* 이메일 */}
           <input
             type="email"
             placeholder="이메일"
@@ -118,7 +128,6 @@ export default function AuthModal({ isOpen, onClose }) {
             className="w-full border p-2 rounded mb-2 "
           />
 
-          {/* 비밀번호 */}
           <input
             autocomplete="current-password"
             type="password"
@@ -159,7 +168,6 @@ export default function AuthModal({ isOpen, onClose }) {
             </div>
           )}
 
-          {/* 버튼 */}
           {mode === "login" ? (
             <button
               className="w-full bg-yellow200 text-white py-2 hover:opacity-80  duration-200 ease-in-out  rounded mb-3"
@@ -176,7 +184,6 @@ export default function AuthModal({ isOpen, onClose }) {
             </button>
           )}
 
-          {/* 모드 전환 */}
           <p
             className="text-center text-sm cursor-pointer text-gray-600 hover:underline"
             onClick={() => setMode(mode === "login" ? "register" : "login")}

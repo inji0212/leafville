@@ -4,8 +4,6 @@ import SceneCanvas from "../components/Scene/SceneCanvas";
 import useSceneLoader from "../hooks/useSceneLoader";
 import PlantCard from "../components/Card/PlantCard";
 import WateringAnimation from "../components/Common/WateringAnimation";
-import AuthModal from "../components/Modal/AuthModal";
-import { Menu } from "../components/Common/Menu";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import useUserStore from "../store/authState";
@@ -17,7 +15,6 @@ export default function Home() {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isWatering, setIsWatering] = useState(false);
-  const [openAuth, setOpenAuth] = useState(false);
   const { setUser, clearUser } = useUserStore();
 
   useEffect(() => {
@@ -53,9 +50,6 @@ export default function Home() {
           isDragging={isDragging}
         />
       )}
-      <Menu onOpenAuthModal={() => setOpenAuth(true)} />
-
-      <AuthModal isOpen={openAuth} onClose={() => setOpenAuth(false)} />
     </div>
   );
 }
