@@ -1,6 +1,6 @@
 import { useGLTF } from "@react-three/drei";
 
-export default function SquareBox(props) {
+export default function PlazaBox(props) {
   const { scene } = useGLTF("/models/room/square.glb");
 
   return <primitive object={scene} {...props} />;

@@ -89,7 +89,7 @@ export default function AuthModal({ isOpen, onClose }) {
 
       alert("로그인 성공!");
       onClose();
-      navigate("/square");
+      navigate("/Plaza");
     } catch (err) {
       alert(err.message);
     }

@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
-import Square from "./pages/square.jsx";
+import Plaza from "./pages/Plaza.jsx";
 import { Menu } from "./components/Common/Menu.jsx";
 import AuthModal from "./components/Modal/AuthModal.jsx";
 import useUserStore from "./store/authState.js";
@@ -31,7 +31,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/square" element={<Square />} />
+        <Route path="/Plaza" element={<Plaza />} />
       </Routes>
 
       <Menu onOpenAuthModal={() => setOpenAuth(true)} />

@@ -5,12 +5,12 @@ export function Menu({ onOpenAuthModal }) {
   const user = useUserStore((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
-  const isSquarePage = location.pathname === "/square";
-  const buttonText = isSquarePage ? "집가기" : "광장가기";
-  const redirectToPath = isSquarePage ? "/" : "/square";
+  const isPlazaPage = location.pathname === "/Plaza";
+  const buttonText = isPlazaPage ? "집가기" : "광장가기";
+  const redirectToPath = isPlazaPage ? "/" : "/Plaza ";
 
   const handleClick = () => {
-    if (isSquarePage) {
+    if (isPlazaPage) {
       navigate(redirectToPath);
     } else {
       if (user) {
