@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../components/Common/Loader";
 import SceneCanvas from "../components/Scene/SceneCanvas";
 import useSceneLoader from "../hooks/useSceneLoader";
@@ -6,6 +6,9 @@ import PlantCard from "../components/Card/PlantCard";
 import WateringAnimation from "../components/Common/WateringAnimation";
 import AuthModal from "../components/Modal/AuthModal";
 import { Menu } from "../components/Common/Menu";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
+import useUserStore from "../store/authState";
 
 export default function Home() {
   const [progress, setProgress] = useState(0);
@@ -15,7 +18,19 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [isWatering, setIsWatering] = useState(false);
   const [openAuth, setOpenAuth] = useState(false);
- 
+  const { setUser, clearUser } = useUserStore();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        clearUser();
+      }
+    });
+
+    return () => unsubscribe();
+  }, [setUser, clearUser]);
   return (
     <div className="w-full h-full relative">
       {!loaded && <Loader progress={progress} />}
@@ -38,10 +53,9 @@ export default function Home() {
           isDragging={isDragging}
         />
       )}
-        <Menu onOpenAuthModal={() => setOpenAuth(true)} />
+      <Menu onOpenAuthModal={() => setOpenAuth(true)} />
 
       <AuthModal isOpen={openAuth} onClose={() => setOpenAuth(false)} />
-
     </div>
   );
 }

@@ -1,10 +1,20 @@
+import { useNavigate } from "react-router-dom";
+import useUserStore from "../../store/authState";
+
 export function Menu({ onOpenAuthModal }) {
+  const user = useUserStore((state) => state.user);
+  const navigate = useNavigate();
+
   const handleClick = () => {
-    const confirmLogin = window.confirm(
-      "광장으로 가시려면 로그인이 필요합니다. 로그인하시겠습니까?"
-    );
-    if (confirmLogin) {
-      onOpenAuthModal();
+    if (user) {
+      navigate("/square");
+    } else {
+      const confirmLogin = window.confirm(
+        "광장으로 가시려면 로그인이 필요합니다. 로그인하시겠습니까?"
+      );
+      if (confirmLogin) {
+        onOpenAuthModal();
+      }
     }
   };
 

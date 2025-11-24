@@ -13,17 +13,15 @@ import { doc, setDoc, getDoc } from "firebase/firestore";
 /* eslint-disable no-unused-vars */
 import { AnimatePresence, motion } from "framer-motion";
 import { auth, db } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthModal({ isOpen, onClose }) {
-  const [mode, setMode] = useState("login"); // login | register
-
-  // 공통 입력값
+  const [mode, setMode] = useState("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // 회원가입용
   const [nickname, setNickname] = useState("");
   const [nickValid, setNickValid] = useState(null); // null | true | false
+  const navigate = useNavigate();
 
   const reset = () => {
     setEmail("");
@@ -59,13 +57,11 @@ export default function AuthModal({ isOpen, onClose }) {
       const user = await createUserWithEmailAndPassword(auth, email, password);
       const uid = user.user.uid;
 
-      // 유저 데이터 저장
       await setDoc(doc(db, "users", uid), {
         email,
         nickname,
       });
 
-      // 닉네임 중복방지 테이블에 저장
       await setDoc(doc(db, "nicknames", nickname), { uid });
 
       alert("회원가입 성공! 로그인 해주세요.");
@@ -80,6 +76,7 @@ export default function AuthModal({ isOpen, onClose }) {
       await signInWithEmailAndPassword(auth, email, password);
       alert("로그인 성공!");
       onClose();
+      navigate("/square");
     } catch (err) {
       alert(err.message);
     }
@@ -89,7 +86,6 @@ export default function AuthModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      {/* 배경 어둡게 */}
       <div className="absolute inset-0 bg-black/50" onClick={onClose}></div>
 
       {/* 모달 */}
@@ -106,11 +102,7 @@ export default function AuthModal({ isOpen, onClose }) {
             onClick={onClose}
             className="absolute -top-16 -right-2 z-50 text-white bg-red100 transition duration-300 ease-in-out pt-1 pr-1 pb-[-1px] pl-1 rounded-lg hover:bg-red200 border-[6px] border-lg  border-yellow200"
           >
-            <img
-              src="/icons/close.svg" 
-              alt="닫기 아이콘"
-              className="w-6 h-6"
-            />
+            <img src="/icons/close.svg" alt="닫기 아이콘" className="w-6 h-6" />
           </button>
 
           <h2 className="text-2xl font-medium mb-4 text-center">

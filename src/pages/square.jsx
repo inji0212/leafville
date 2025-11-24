@@ -7,6 +7,7 @@ export default function Square() {
   return (
     <div className="w-full h-full relative">
       <SquareCanvas setProgress={setProgress} />
+      
     </div>
   );
 }
