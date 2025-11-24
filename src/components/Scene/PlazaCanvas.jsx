@@ -6,9 +6,9 @@ import {
   CameraControls,
 } from "@react-three/drei";
 import { useEffect } from "react";
-import SquareBox from "../Models/SquareBox";
+import PlazaBox from "../Models/PlazaBox";
 
-export default function SquareCanvas({ setProgress }) {
+export default function PlazaCanvas({ setProgress }) {
   function ProgressReporter() {
     const { progress } = useProgress();
 
@@ -27,7 +27,7 @@ export default function SquareCanvas({ setProgress }) {
         <PerspectiveCamera makeDefault position={[15, 10, 20]} />
         <CameraControls minPolarAngle={0} maxPolarAngle={Math.PI / 1.6} />
 
-        <SquareBox scale={0.5} position={[0, 0, 0]} rotation={[0, 3.5, 0]} />
+        <PlazaBox scale={0.5} position={[0, 0, 0]} rotation={[0, 3.5, 0]} />
 
         <Environment files="scene/sunny.hdr" background blur={0} />
         <ProgressReporter />

@@ -19,10 +19,8 @@ export default function PlantTomato({
   useCursorPointer(hovered);
 
   const handleDropOnPlant = useCallback(() => {
-  
-      alert("물 주기가 완료되었습니다! 🌱");
-  
-  },[]);
+    alert("물 주기가 완료되었습니다! 🌱");
+  }, []);
 
   useDragOverCanvas(plantRef, handleDropOnPlant);
 
